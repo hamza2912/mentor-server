@@ -2,6 +2,7 @@
 var server = require('./server.js');
 var connection = require('./connection.mongoose.js');
 var mentorsSchema = require('./models/mentors-model.js');
+var userSchema = require('./models/users-model.js');
 //var authenticationSchema = require('./models/authentication.mongoose.js');
 
 var mongoose = require('mongoose');
@@ -33,6 +34,7 @@ Mentor Schema
 */
 //addMentor
 app.post('/newmentor', (req, res) => {
+
 
     mentorsSchema.MentorModel.find({ userId: req.body.userId }, function(err, userObject)
     {
@@ -117,17 +119,9 @@ app.put('/mentorComments/:userId', (req, res) => {
 */
 //addUser
 app.post('/newuser', (req, res) => {
-    console.log("In /register.");
+    console.log(req);
 
-    userSchema.UserModel.find({ userId: req.body.userId }, function(err, userObject)
-    {
-        if(userObject.length === 1)
-        {
-            res.json({ "status": false });
-        }
-        else
-        {
-            userSchema.addUser(req.body, function(err, userObject)
+        userSchema.addUser(req.body, function(err, userObject)
             {
                 if(err)
                 {
@@ -135,9 +129,7 @@ app.post('/newuser', (req, res) => {
                     return;
                 }
                 res.json(userObject);
-            });
-        }
-    });
+        });
 });
 
 
