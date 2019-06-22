@@ -23,7 +23,7 @@ var mentorsSchema = mongoose.Schema(
         },
         userId:
         {
-            type: String,
+            type: Number,
             required: true
         },
         content:
@@ -46,11 +46,11 @@ var mentorsSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        city:
-        {
-            type: String,
-            required: true
-        },
+        // city:
+        // {
+        //     type: String,
+        //     required: true
+        // },
         location:
         {
             type: String,

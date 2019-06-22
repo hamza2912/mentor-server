@@ -35,16 +35,7 @@ Mentor Schema
 //addMentor
 app.post('/newmentor', (req, res) => {
 
-
-    mentorsSchema.MentorModel.find({ userId: req.body.userId }, function(err, userObject)
-    {
-        if(userObject.length === 1)
-        {
-            res.json({ "status": false });
-        }
-        else
-        {
-            mentorsSchema.addMentor(req.body, function(err, userObject)
+    mentorsSchema.addMentor(req.body, function(err, userObject)
             {
                 if(err)
                 {
@@ -53,15 +44,33 @@ app.post('/newmentor', (req, res) => {
                 }
                 res.json(userObject);
             });
-        }
-    });
+
+    // mentorsSchema.MentorModel.find({ userId: req.body.userId }, function(err, userObject)
+    // {
+    //     if(userObject.length === 1)
+    //     {
+    //         res.json({ "status": false });
+    //     }
+    //     else
+    //     {
+    //         mentorsSchema.addMentor(req.body, function(err, userObject)
+    //         {
+    //             if(err)
+    //             {
+    //                 res.status(400).send("Bad request.");
+    //                 return;
+    //             }
+    //             res.json(userObject);
+    //         });
+    //     }
+    // });
 });
 
 
 //getMentors
 app.get('/mentorposts', (req, res) => {
             
-    mentorSchema.getMentors(function(err, noteObject)
+    mentorsSchema.getMentors(function(err, noteObject)
             {
                 if(err)
                 {
@@ -69,6 +78,7 @@ app.get('/mentorposts', (req, res) => {
                     return;
                 }
                 res.json(noteObject);
+                
             });
 });
 
@@ -119,12 +129,13 @@ app.put('/mentorComments/:userId', (req, res) => {
 */
 //addUser
 app.post('/newuser', (req, res) => {
-    console.log(req);
+    //console.log(req);
 
         userSchema.addUser(req.body, function(err, userObject)
             {
                 if(err)
                 {
+                    console.log(err);
                     res.status(400).send("Bad request.");
                     return;
                 }
@@ -145,6 +156,7 @@ app.get('/userposts', (req, res) => {
                     return;
                 }
                 res.json(noteObject);
+                console.log(noteObject);
             });
 });
 
