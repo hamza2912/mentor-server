@@ -27,8 +27,9 @@ exports.addChats = function(chatObject, callback)
 }
 
 
-exports.getChats = function(_userId, callback)
+exports.getChats = function(callback)
 {
+
     ChatsModel.find(callback);
 
 }

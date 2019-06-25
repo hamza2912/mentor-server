@@ -86,7 +86,7 @@ exports.addMentor = function(mentorObject, callback)
 
 exports.deleteMentor = function(_userId, callback)
 {
-    var query = { userId: _userId };
+    var query = { userId: _userId[1] };
 
     MentorModel.remove(query, callback);
 }
@@ -101,7 +101,7 @@ exports.getMentors = function(callback)
 exports.updateComment = function(_userId, updatedObject, callback)
 {
 
-    var query = {userId: _userId};
+    var query = {userId: _userId[1]};
 
     var update;
     
@@ -117,7 +117,7 @@ exports.updateComment = function(_userId, updatedObject, callback)
 exports.updateMesseges = function(_userId, updatedObject, callback)
 {
 
-    var query = {userId: _userId};
+    var query = {userId: _userId[1]};
 
     var update;
     

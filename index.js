@@ -3,6 +3,7 @@ var server = require('./server.js');
 var connection = require('./connection.mongoose.js');
 var mentorsSchema = require('./models/mentors-model.js');
 var userSchema = require('./models/users-model.js');
+var ChatsSchema = require('./models/chats-model.js');
 //var authenticationSchema = require('./models/authentication.mongoose.js');
 
 var mongoose = require('mongoose');
@@ -85,7 +86,7 @@ app.get('/mentorposts', (req, res) => {
 //deleteMentor
 app.delete('/posts/:noteId', (req, res) => {
 
-    mentorSchema.deleteMnetor(req.params.noteId, function(err, noteObject)
+    mentorsSchema.deleteMentor(req.params.noteId, function(err, noteObject)
     {
         
         if(err)
@@ -101,10 +102,12 @@ app.delete('/posts/:noteId', (req, res) => {
 
 //updateMesseges
 app.put('/mentorMesseges/:userId', (req, res) => {
-    MentorModel.updateMesseges(req.params.userId, req.body,  function(err, userObject)
+    
+    mentorsSchema.updateMesseges(req.params.userId, req.body,  function(err, userObject)
     {
         if(err)
         {
+            console.log(err);
             res.status(404).send("Error updating the object.");
             return;
         }
@@ -114,13 +117,16 @@ app.put('/mentorMesseges/:userId', (req, res) => {
 
 //updateComments
 app.put('/mentorComments/:userId', (req, res) => {
-    MentorModel.updateComment(req.params.userId, req.body,  function(err, userObject)
+    console.log(req.body);
+    mentorsSchema.updateComment(req.params.userId, req.body,  function(err, userObject)
     {
         if(err)
         {
+            console.log(err);
             res.status(404).send("Error updating the object.");
             return;
         }
+        //console.log("Hereeeeee");
         res.json(userObject);
     });
 });
@@ -163,9 +169,9 @@ app.get('/userposts', (req, res) => {
 /* Chats Schema
 */
 //addChats
-app.post('/newchat', (req, res) => {
+app.post('/newTutorRequest', (req, res) => {
 
-    ChatsModel.addChats(req.body, function(err, userObject)
+    ChatsSchema.addChats(req.body, function(err, userObject)
         {
             if(err)
             {
@@ -189,7 +195,9 @@ app.get('/allchats', (req, res) => {
                     res.status(404).send("Error getting the object.");
                     return;
                 }
+                
                 res.json(noteObject);
+                
             });
 });
 
