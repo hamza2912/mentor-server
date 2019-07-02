@@ -162,7 +162,6 @@ app.get('/userposts', (req, res) => {
                     return;
                 }
                 res.json(noteObject);
-                console.log(noteObject);
             });
 });
 
