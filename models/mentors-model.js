@@ -41,7 +41,22 @@ var mentorsSchema = mongoose.Schema(
             type: String,
             required: true
         },
+        subjects:
+        {
+            type: String,
+            required: true
+        },
         number:
+        {
+            type: String,
+            required: true
+        },
+        email:
+        {
+            type: String,
+            required: true
+        },
+        description:
         {
             type: String,
             required: true
@@ -71,6 +86,11 @@ var mentorsSchema = mongoose.Schema(
             type: [String],
             required: true
         },
+        rating:
+        {
+            type: Number,
+            required: true
+        },
     }
 );
 
@@ -86,7 +106,7 @@ exports.addMentor = function(mentorObject, callback)
 
 exports.deleteMentor = function(_userId, callback)
 {
-    var query = { userId: _userId[1] };
+    var query = { userId: _userId };
 
     MentorModel.remove(query, callback);
 }
@@ -100,8 +120,9 @@ exports.getMentors = function(callback)
 
 exports.updateComment = function(_userId, updatedObject, callback)
 {
+    var iid = _userId.slice(1);
 
-    var query = {userId: _userId[1]};
+    var query = {_id: iid};
 
     var update;
     
@@ -114,10 +135,28 @@ exports.updateComment = function(_userId, updatedObject, callback)
     
 }
 
+exports.updateRating = function(_userId, updatedObject, callback)
+{
+    var iid = _userId.slice(1);
+
+    var query = {_id: iid};
+
+    var update;
+    
+    if(updatedObject)
+    {
+        update = { rating: updatedObject.rating};
+    }
+
+    MentorModel.findOneAndUpdate(query, update, callback);
+    
+}
+
 exports.updateMesseges = function(_userId, updatedObject, callback)
 {
+    var iid = _userId.slice(1);
 
-    var query = {userId: _userId[1]};
+    var query = {_id: iid};
 
     var update;
     

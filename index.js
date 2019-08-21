@@ -116,9 +116,25 @@ app.put('/mentorMesseges/:userId', (req, res) => {
 });
 
 //updateComments
-app.put('/mentorComments/:userId', (req, res) => {
+app.put('/mentorComments/:id', (req, res) => {
     console.log(req.body);
-    mentorsSchema.updateComment(req.params.userId, req.body,  function(err, userObject)
+    mentorsSchema.updateComment(req.params.id, req.body,  function(err, userObject)
+    {
+        if(err)
+        {
+            console.log(err);
+            res.status(404).send("Error updating the object.");
+            return;
+        }
+        //console.log("Hereeeeee");
+        res.json(userObject);
+    });
+});
+
+//update Ratings
+app.put('/tutorRating/:id', (req, res) => {
+    console.log(req.body);
+    mentorsSchema.updateRating(req.params.id, req.body,  function(err, userObject)
     {
         if(err)
         {
